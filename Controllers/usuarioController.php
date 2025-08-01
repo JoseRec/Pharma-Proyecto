@@ -55,4 +55,45 @@ if (isset($_POST["btnActualizarContrasenna"])) {
         $_POST["txtMensaje"] = "Su contraseña no fue actualizada correctamente.";
     }
 }
+
+function ConsultarUsuarios()
+{
+    return ConsultarUsuariosModel();
+}
+
+if (isset($_POST["btnCambiarEstadoUsuario"])) {
+    $idUsuario = $_POST["idUsuario"];
+
+    $respuesta = CambiarEstadoUsuarioModel($idUsuario);
+
+    if ($respuesta) {
+        header("location: ../../Views/Usuarios/ConsultarUsuarios.php");
+    } else {
+        $_POST["txtMensaje"] = "El usuario no fue actualizado correctamente.";
+    }
+}
+
+function ConsultarRoles()
+{
+    return ConsultarRolesModel();
+}
+
+if (isset($_POST["btnActualizarDatosUsuario"])) {
+
+    $nombre = $_POST["txtNombre"];
+    $correo = $_POST["txtCorreo"];
+    $identificacion = $_POST["txtIdentificacion"];
+    $idUsuario = $_POST["txtIdUsuario"];
+    $listaRoles = $_POST["listaRoles"];
+
+    // Enviamos el nombre de usuario y la contraseña al modelo
+    $respuesta = ActualizarPerfilUsuarioModel($idUsuario, $nombre, $correo, $identificacion, $listaRoles);
+
+    if ($respuesta) {
+        $_SESSION["Nombre"] = $nombre;
+        $_POST["txtMensaje"] = "Su información se actualizo correctamente.";
+    } else {
+        $_POST["txtMensaje"] = "Su información no fue registrada correctamente.";
+    }
+}
 ?>

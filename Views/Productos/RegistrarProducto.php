@@ -11,7 +11,6 @@ AddHead();
 ?>
 
 <body>
-
     <div id="main-wrapper">
 
         <?php
@@ -27,60 +26,66 @@ AddHead();
                                 <h4 class="card-title">Registro de Productos</h4>
                             </div>
                             <hr>
-                            <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+                            <form class="form-horizontal p-4" action="" method="POST" enctype="multipart/form-data">
                                 <div class="card-body">
-
-                                    <?php
-                                    if (isset($_POST["txtMensaje"])) {
-                                        echo '<div class="alert alert-warning text-center">' . $_POST["txtMensaje"] . '</div>';
-                                    }
-                                    ?>
+                                    <?php if (isset($_POST["txtMensaje"])): ?>
+                                        <div class="alert alert-warning text-center"><?php echo $_POST["txtMensaje"]; ?>
+                                        </div>
+                                    <?php endif; ?>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-3 text-right control-label col-form-label">Nombre</label>
-                                        <div class="col-lg-7">
-                                            <input id="txtNombre" name="txtNombre" type="text" class="form-control">
+                                        <label for="txtNombre"
+                                            class="col-sm-3 col-form-label text-right font-weight-bold">Nombre</label>
+                                        <div class="col-sm-8">
+                                            <input id="txtNombre" name="txtNombre" type="text" class="form-control"
+                                                required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label
-                                            class="col-sm-3 text-right control-label col-form-label">Descripción</label>
-                                        <div class="col-md-7">
+                                        <label for="txtDescripcion"
+                                            class="col-sm-3 col-form-label text-right font-weight-bold">Descripción</label>
+                                        <div class="col-sm-8">
                                             <textarea id="txtDescripcion" name="txtDescripcion" class="form-control"
-                                                rows="5"></textarea>
+                                                rows="4" required></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-md-3 text-right control-label col-form-label">Precio</label>
-                                        <div class="col-md-3"> <input id="txtPrecio" name="txtPrecio" maxlength="10"
-                                                type="text" class="form-control" onkeypress="permitirSoloNumeros()">
+                                        <label for="txtPrecio"
+                                            class="col-sm-3 col-form-label text-right font-weight-bold">Precio</label>
+                                        <div class="col-sm-3">
+                                            <input id="txtPrecio" name="txtPrecio" maxlength="10" type="text"
+                                                class="form-control" onkeypress="permitirSoloNumeros()" required>
                                         </div>
 
-                                        <label class="col-md-1 text-right control-label col-form-label">Cantidad</label>
-                                        <div class="col-md-3"> <input id="txtCantidad" name="txtCantidad" maxlength="5"
-                                                type="text" class="form-control" onkeypress="permitirSoloNumeros()">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 text-right control-label col-form-label">Imagen</label>
-                                        <div class="col-md-7">
-                                            <input id="txtImagen" accept="image/png" name="txtImagen" type="file"
-                                                class="form-control">
+                                        <label for="txtCantidad"
+                                            class="col-sm-2 col-form-label text-right font-weight-bold">Cantidad</label>
+                                        <div class="col-sm-3">
+                                            <input id="txtCantidad" name="txtCantidad" maxlength="5" type="text"
+                                                class="form-control" onkeypress="permitirSoloNumeros()" required>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-10 text-right pb-2">
+                                    <div class="form-group row align-items-center">
+                                        <label for="txtImagen"
+                                            class="col-sm-3 col-form-label text-right font-weight-bold">Imagen</label>
+                                        <div class="col-sm-8">
+                                            <input id="txtImagen" name="txtImagen" type="file" accept="image/png"
+                                                class="form-control-file" required>
+                                            <small class="form-text text-muted">Formato PNG recomendado</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mt-4">
+                                        <div class="col-sm-12 text-right">
                                             <button id="btnRegistrarProducto" name="btnRegistrarProducto"
-                                                class="btn btn-info" type="submit">Procesar</button>
+                                                class="btn btn-primary px-5" type="submit">Registrar</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </form>
+                                    
                         </div>
                     </div>
                 </div>

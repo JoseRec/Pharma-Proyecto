@@ -1,8 +1,8 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Views/layoutInterno.php';
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Controllers/productosController.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Controllers/usuarioController.php';
 
-$resultado = ConsultarProductos(-1);
+$resultado = ConsultarUsuarios();
 ?>
 
 <!DOCTYPE html>
@@ -29,23 +29,18 @@ AddHead();
                         }
                         ?>
 
-                        <div class="text-right mb-3">
-                            <a href="registrarProducto.php" class="btn btn-info btn-sm px-4 shadow-sm">
-                                <i class="icon-plus mr-1"></i> Agregar
-                            </a>
-                        </div>
 
                         <div class="table-responsive" style="overflow-x:auto;">
                             <table id="tablaDatos" class="table table-striped table-bordered table-hover"
-                                style="min-width: 1000px; font-size: 1rem; background: #fff;">
+                                style="min-width: 1000px; font-size: 1.05rem; background: #fff;">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
+                                        <th>Identificación</th>
                                         <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Imagen</th>
+                                        <th>Correo</th>
+                                        <th>Telefono</th>
+                                        <th>Rol</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -54,25 +49,25 @@ AddHead();
                                     <?php
                                     while ($fila = mysqli_fetch_array($resultado)) {
                                         echo "<tr>";
-                                        echo "<td>" . $fila["idProducto"] . "</td>";
+                                        echo "<td>" . $fila["idUsuario"] . "</td>";
+                                        echo "<td>" . $fila["Identificacion"] . "</td>";
                                         echo "<td>" . $fila["Nombre"] . "</td>";
-                                        echo "<td>" . $fila["Descripcion"] . "</td>";
-                                        echo "<td>$ " . $fila["Precio"] . "</td>";
-                                        echo "<td>" . $fila["Stock"] . "</td>";
-                                        echo "<td style='text-align:center;'><img src='" . $fila["Imagen"] . "' alt='Imagen Producto' class='img-thumbnail' style='max-width:250px; height:auto;'></td>";
-                                        echo "<td>" . $fila["EstadoDescripcion"] . "</td>";
+                                        echo "<td>" . $fila["Correo"] . "</td>";
+                                        echo "<td>" . $fila["Telefono"] . "</td>";
+                                        echo "<td>" . $fila["RolNombre"] . "</td>";
+                                        echo "<td>" . $fila["EstadoDescripcion"] . "</td>"; // <- cuidado si este campo no existe
                                         echo '<td class="text-center">
-                                            <a class="btn p-0 border-0 btnAbrirModal" data-toggle="modal" data-target="#CambiarEstadoProducto"
-                                                data-id="' . $fila["idProducto"] . '" 
-                                                data-nombre="' . $fila["Nombre"] . '" title="Cambiar Estado" style="background: none;">
+                                            <a class="btn p-0 border-0 btnAbrirModal" data-toggle="modal" data-target="#CambiarEstadoUsuario"
+                                                data-id="' . $fila["idUsuario"] . '" 
+                                                data-nombre="' . $fila["Nombre"] . '" style="background: none;">
                                                 <i class="' . ($fila["Estado"] ? 'icon-toggle-on text-success' : 'icon-toggle-off text-danger') . '" style="font-size:1.3em;"></i>
                                             </a>
 
-                                            <a class="btn btn-sm btn-outline-primary ml-2" href="ActualizarProductos.php?q=' . $fila["idProducto"] . '" title="Editar Producto">
+
+                                            <a class="btn btn-sm btn-outline-primary ml-2" href="ActualizarUsuario.php?q=' . $fila["idUsuario"] . '" title="Editar Usuario">
                                                 <i class="icon-pencil" style="font-size:1.3em;"></i>
                                             </a>
                                         </td>';
-
                                         echo "</tr>";
                                     }
                                     ?>
@@ -89,7 +84,7 @@ AddHead();
     </div>
 
     <!-- Modal para cambiar estado -->
-    <div class="modal fade" id="CambiarEstadoProducto" tabindex="-1" role="dialog" aria-labelledby="tituloModal"
+    <div class="modal fade" id="CambiarEstadoUsuario" tabindex="-1" role="dialog" aria-labelledby="tituloModal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content rounded-3 shadow">
@@ -102,11 +97,11 @@ AddHead();
 
                 <form action="" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" id="IdProducto" name="IdProducto" class="form-control">
+                        <input type="hidden" id="idUsuario" name="idUsuario" class="form-control">
                         <p id="lblNombre" class="mb-0" style="font-weight:600;"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="btnCambiarEstadoProducto" name="btnCambiarEstadoProducto"
+                        <button type="submit" id="btnCambiarEstadoUsuario" name="btnCambiarEstadoUsuario"
                             class="btn btn-primary px-4">Procesar</button>
                         <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">Cancelar</button>
                     </div>
@@ -135,8 +130,8 @@ AddHead();
             $('.btnAbrirModal').on('click', function () {
                 const id = $(this).data('id');
                 const nombre = $(this).data('nombre');
-                $('#IdProducto').val(id);
-                $('#lblNombre').text("¿Desea cambiar el estado del producto \"" + nombre + "\"?");
+                $('#idUsuario').val(id);
+                $('#lblNombre').text("¿Desea cambiar el estado del usuario \"" + nombre + "\"?");
             });
 
         });

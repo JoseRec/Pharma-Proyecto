@@ -51,33 +51,30 @@ function ConsultarInfoProducto($idProducto)
     }
 }
 
- if(isset($_POST["btnActualizarProducto"]))
-    {
-        $idProducto = $_POST["txtId"];
-        $nombre = $_POST["txtNombre"];
-        $descripcion = $_POST["txtDescripcion"];
-        $precio = $_POST["txtPrecio"];
-        $cantidad = $_POST["txtCantidad"];
-        $imagen = "";
+if (isset($_POST["btnActualizarProducto"])) {
+    $idProducto = $_POST["txtId"];
+    $nombre = $_POST["txtNombre"];
+    $descripcion = $_POST["txtDescripcion"];
+    $precio = $_POST["txtPrecio"];
+    $cantidad = $_POST["txtCantidad"];
+    $imagen = "";
 
-        if($_FILES["txtImagen"]["name"] != "")
-        {
-            $imagen = '/Pharma Proyecto/Views/ImagenesProductos/' . $_FILES["txtImagen"]["name"];
+    $imagen = $_POST["txtImagenActual"]; // Por defecto, usar la imagen actual
 
-            $origen = $_FILES["txtImagen"]["tmp_name"];
-            $destino = $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Views/ImagenesProductos/' . $_FILES["txtImagen"]["name"];
-            copy($origen,$destino);
-        }
+    if ($_FILES["txtImagen"]["name"] != "") {
+        $imagen = '/Pharma Proyecto/Views/ImagenesProductos/' . $_FILES["txtImagen"]["name"];
 
-        $respuesta = ActualizarProductoModel($idProducto, $nombre, $descripcion, $precio, $cantidad, $imagen);
-
-        if($respuesta)
-        {
-            header("location: ../../Views/Productos/ConsultarProductos.php");
-        }
-        else
-        {
-            $_POST["txtMensaje"] = "El producto no fue actualizado correctamente.";
-        }
+        $origen = $_FILES["txtImagen"]["tmp_name"];
+        $destino = $_SERVER["DOCUMENT_ROOT"] . $imagen;
+        copy($origen, $destino);
     }
+
+    $respuesta = ActualizarProductoModel($idProducto, $nombre, $descripcion, $precio, $cantidad, $imagen);
+
+    if ($respuesta) {
+        header("location: ../../Views/Productos/ConsultarProductos.php");
+    } else {
+        $_POST["txtMensaje"] = "El producto no fue actualizado correctamente.";
+    }
+}
 ?>
