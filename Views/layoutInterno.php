@@ -5,92 +5,137 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+
 function showHeader()
 {
-    $nombre = $_SESSION['Nombre']; // Ya que sí o sí está logueado
+    $nombre = $_SESSION['Nombre']; // Usuario logueado
+    $rol = $_SESSION['Rol_Fk']; // 1 = Comprador, 2 = Administrador
 
-    echo '
-    <div class="site-wrap">
-      <div class="site-navbar py-2">
-        <div class="search-wrap">
-          <div class="container">
-            <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-            <form action="#" method="post">
-              <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
-            </form>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="logo">
-              <div class="site-logo">
-                <a href="Principal.php" class="js-logo-clone">Pharma</a>
+    // Header para rol COMPRADOR
+    if ($rol == 1) {
+        echo '
+        <div class="site-wrap">
+          <div class="site-navbar py-2">
+            <div class="search-wrap">
+              <div class="container">
+                <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                <form action="#" method="post">
+                  <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+                </form>
               </div>
             </div>
-            <div class="main-nav d-none d-lg-block">
-              <nav class="site-navigation text-right text-md-center" role="navigation">
-                <ul class="site-menu js-clone-nav d-none d-lg-block">
-                  <li class="active"><a href="index.html">Home</a></li>
-                  <li><a href="shop.html">Store</a></li>
-                  <li class="has-children">
-                    <a href="#">Dropdown</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Supplements</a></li>
+
+            <div class="container">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="logo">
+                  <div class="site-logo">
+                    <a href="Principal.php" class="js-logo-clone">Pharma</a>
+                  </div>
+                </div>
+                <div class="main-nav d-none d-lg-block">
+                  <nav class="site-navigation text-right text-md-center" role="navigation">
+                    <ul class="site-menu js-clone-nav d-none d-lg-block">
+                      <li class="active"><a href="index.html">Home</a></li>
+                      <li><a href="shop.html">Store</a></li>
                       <li class="has-children">
-                        <a href="#">Vitamins</a>
+                        <a href="#">Dropdown</a>
                         <ul class="dropdown">
                           <li><a href="#">Supplements</a></li>
-                          <li><a href="#">Vitamins</a></li>
+                          <li class="has-children">
+                            <a href="#">Vitamins</a>
+                            <ul class="dropdown">
+                              <li><a href="#">Supplements</a></li>
+                              <li><a href="#">Vitamins</a></li>
+                              <li><a href="#">Diet &amp; Nutrition</a></li>
+                              <li><a href="#">Tea &amp; Coffee</a></li>
+                            </ul>
+                          </li>
                           <li><a href="#">Diet &amp; Nutrition</a></li>
                           <li><a href="#">Tea &amp; Coffee</a></li>
                         </ul>
                       </li>
-                      <li><a href="#">Diet &amp; Nutrition</a></li>
-                      <li><a href="#">Tea &amp; Coffee</a></li>
+                      <li><a href="about.html">About</a></li>
+                      <li><a href="../Contacto/contacto.php">Contact</a></li>
                     </ul>
-                  </li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="../Contacto/contacto.php">Contact</a></li>
-                </ul>
-              </nav>
-            </div>
+                  </nav>
+                </div>
+                <div class="icons">
+                  <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+                  <a href="cart.html" class="icons-btn d-inline-block bag">
+                    <span class="icon-shopping-bag"></span>
+                    <span class="number">2</span>
+                  </a>
 
-            <div class="icons">
-              <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-              <a href="cart.html" class="icons-btn d-inline-block bag">
-                <span class="icon-shopping-bag"></span>
-                <span class="number">2</span>
-              </a>
-
-              <!-- Menú desplegable del usuario -->
-              <div class="dropdown d-inline-block">
-                <a href="#" class="icons-btn dropdown-toggle" id="cuentaMenu"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="d-none d-lg-inline ml-1">' . $nombre . '</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cuentaMenu">
-                    <a class="dropdown-item" href="../Usuarios/consultarPerfil.php">Actualizar perfil</a>
-                    <a class="dropdown-item" href="../Usuarios/Reset.php">Cambiar contraseña</a>
-                    <div class="dropdown-divider"></div>
-                    <form class="form-horizontal" action="" method="POST" style="margin: 0; padding: 0;">
-                    <button id="btnCerrarSesion" name="btnCerrarSesion" type="submit"
-                        class="dropdown-item" style="cursor: pointer; width: 100%; text-align: left;">
-                        <i class="fa fa-sign-out mr-2"></i> Cerrar Sesión
-                    </button>
-                    </form>
+                  <!-- Menú de usuario -->
+                  <div class="dropdown d-inline-block">
+                    <a href="#" class="icons-btn dropdown-toggle" id="cuentaMenu"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="d-none d-lg-inline ml-1">' . $nombre . '</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cuentaMenu">
+                        <a class="dropdown-item" href="../Usuarios/consultarPerfil.php">Actualizar perfil</a>
+                        <a class="dropdown-item" href="../Usuarios/Reset.php">Cambiar contraseña</a>
+                        <div class="dropdown-divider"></div>
+                        <form class="form-horizontal" action="" method="POST" style="margin: 0; padding: 0;">
+                        <button id="btnCerrarSesion" name="btnCerrarSesion" type="submit"
+                            class="dropdown-item" style="cursor: pointer; width: 100%; text-align: left;">
+                            <i class="fa fa-sign-out mr-2"></i> Cerrar Sesión
+                        </button>
+                        </form>
+                    </div>
+                  </div>
+                  <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+                    <span class="icon-menu"></span>
+                  </a>
                 </div>
               </div>
-              <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-                <span class="icon-menu"></span>
-              </a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    ';
+        ';
+    }
+
+    // Header para rol ADMINISTRADOR
+    else if ($rol == 2) {
+        echo '
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">Pharma Admin</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="../Usuarios/ConsultarUsuarios.php">Usuarios</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../Productos/ConsultarProductos.php">Productos</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="adminMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ' . $nombre . '
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminMenu">
+                  <a class="dropdown-item" href="../Usuarios/consultarPerfil.php">Actualizar perfil</a>
+                  <a class="dropdown-item" href="../Usuarios/Reset.php">Cambiar contraseña</a>
+                  <div class="dropdown-divider"></div>
+                  <form action="" method="POST" style="margin: 0; padding: 0;">
+                    <button name="btnCerrarSesion" type="submit" class="dropdown-item">Cerrar Sesión</button>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        ';
+    }
 }
+
+
+
 
 function showTestimonio()
 {
@@ -268,6 +313,9 @@ function AddJs()
     <script src="../Funciones/jquery.magnific-popup.min.js"></script>
     <script src="../Funciones/aos.js"></script>
     <script src="../Funciones/main.js"></script>
+    <script src="../Funciones/comunes.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap4.js"></script>
     ';
 }
 ?>

@@ -21,9 +21,9 @@ if (isset($_POST["btnIniciarSesion"])) {
         $_SESSION["Nombre"] = $datos["Nombre"];
         $_SESSION["idUsuario"] = $datos["idUsuario"];
         $_SESSION["Contrasenna"] = $datos["Contrasenna"];
-        $_SESSION["idRol"] = $datos["idRol"];
+        $_SESSION["Rol_Fk"] = $datos["Rol_Fk"];
         $_SESSION["Telefono"] = $datos["Telefono"];
-        $_SESSION["NombreRol"] = $datos["RolNombre"];
+        $_SESSION["RolNombre"] = $datos["RolNombre"];
 
         header("location: ../../Views/Home/principal.php");
     } else {

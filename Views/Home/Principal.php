@@ -1,5 +1,12 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Views/layoutInterno.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Controllers/productosController.php';
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$resultado = ConsultarProductos(1);
 ?>
 
 <!DOCTYPE html>
@@ -8,6 +15,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Views/layoutInterno.p
 <?php
 AddHead();
 ?>
+
 <body>
     <?php
     showHeader();
@@ -89,40 +97,28 @@ AddHead();
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <span class="tag">Sale</span>
-                    <a href="shop-single.html"> <img src="../Imagenes/product_01.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
-                    <p class="price"><del>95.00</del> &mdash; $55.00</p>
-                </div>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="shop-single.html"> <img src="../Imagenes/product_02.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
-                    <p class="price">$70.00</p>
-                </div>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="shop-single.html"> <img src="../Imagenes/product_03.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-                    <p class="price">$120.00</p>
-                </div>
+                <?php while ($fila = mysqli_fetch_array($resultado)) { ?>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <div class="card h-100 d-flex flex-column shadow-sm border-0">
+                            <img src="<?php echo $fila["Imagen"]; ?>" class="card-img-top"
+                                style="height: 200px; object-fit: contain;">
 
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-center"><?php echo $fila["Nombre"]; ?></h5>
+                                    <p class="card-text text-center"><?php echo $fila["Descripcion"]; ?></p>
+                                </div>
 
-                    <a href="shop-single.html"> <img src="../Imagenes/product_04.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
-                    <p class="price"><del>45.00</del> &mdash; $20.00</p>
-                </div>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <a href="shop-single.html"> <img src="../Imagenes/product_05.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
-                    <p class="price">$38.00</p>
-                </div>
-                <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                    <span class="tag">Sale</span>
-                    <a href="shop-single.html"> <img src="../Imagenes/product_06.png" alt="Image"></a>
-                    <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
-                    <p class="price"><del>$89</del> &mdash; $38.00</p>
-                </div>
+                                <div class="mt-auto text-center">
+                                    <p class="text-primary font-weight-bold mb-2">$<?php echo $fila["Precio"]; ?></p>
+                                    <button class="btn w-60" style="background-color: #1565c0; color: white;">
+                                        <span class="icon-add_shopping_cart"></span> Agregar al carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div class="row mt-5">
                 <div class="col-12 text-center">
@@ -145,4 +141,5 @@ AddHead();
     AddJs();
     ?>
 </body>
+
 </html>

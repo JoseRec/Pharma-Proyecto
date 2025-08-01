@@ -1,0 +1,81 @@
+<?php
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Pharma Proyecto/Models/connect.php';
+function ConsultarProductosModel($Filtro)
+{
+    try {
+        $context = OpenDB();
+        $sp = "CALL ConsultarProductos('$Filtro')";
+        $respuesta = $context->query($sp);
+
+        CloseDB($context);
+        return $respuesta;
+    } catch (Exception $error) {
+        echo "Error: " . $error->getMessage();
+        return null;
+    }
+}
+
+function RegistrarProductoModel($nombre, $descripcion, $precio, $stock, $imagen)
+{
+    try {
+        $context = OpenDB();
+        $sp = "CALL RegistrarProducto('$nombre', '$descripcion', '$precio', '$stock', '$imagen')";
+        $respuesta = $context->query($sp);
+
+        CloseDB($context);
+        return $respuesta;
+    } catch (Exception $error) {
+        echo "Error: " . $error->getMessage();
+        return null;
+    }
+}
+
+function CambiarEstadoProductoModel($idProducto)
+{
+    try {
+        $context = OpenDB();
+
+        $sp = "CALL CambiarEstadoProducto('$idProducto')";
+        $respuesta = $context->query($sp);
+
+        CloseDB($context);
+        return $respuesta;
+    } catch (Exception $error) {
+        RegistrarError($error);
+        return false;
+    }
+}
+
+function ConsultarInfoProductoModel($idProducto)
+{
+    try {
+        $context = OpenDB();
+
+        $sp = "CALL ConsultarInfoProducto('$idProducto')";
+        $respuesta = $context->query($sp);
+
+        CloseDB($context);
+        return $respuesta;
+    } catch (Exception $error) {
+        RegistrarError($error);
+        return null;
+    }
+}
+
+function ActualizarProductoModel($idProducto, $nombre, $descripcion, $precio, $cantidad, $imagen)
+{
+    try {
+        $context = OpenDB();
+
+        $sp = "CALL ActualizarProducto('$idProducto', '$nombre', '$descripcion', '$precio', '$cantidad', '$imagen')";
+        $respuesta = $context->query($sp);
+
+        CloseDB($context);
+        return $respuesta;
+    } catch (Exception $error) {
+        RegistrarError($error);
+        return false;
+    }
+}
+
+?>
