@@ -129,7 +129,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Ana María Soto Vargas','ana.soto1@ejemplo.com','1-0987-0123','1-0987-0123','ContrasenaSegura',1,_binary ''),(2,'Luis Fernando Blanco Mora','luis.blanco@ejemplo.com','2-0123-0456','8765-4321','MiPassword2#',1,_binary ''),(3,'Sofía Alejandra Castro León','sofia.castro@ejemplo.com','1-1000-1111','8300-1234','ClaveFacil3$',1,_binary ''),(4,'Carlos Alberto Ramírez Solís','carlos.ramirez@ejemplo.com','3-0234-0567','8911-2233','Usuario4*',2,_binary ''),(6,'José Pablo Núñez Rojas','jose.nunez@ejemplo.com','4-0101-0202','8678-9012','MiClave6&',1,_binary ''),(7,'Willy Alejandro','walejandro1127@gmail.com','305670504','8915-7010','jos3sito11',1,_binary '\0');
+INSERT INTO `usuario` VALUES (1,'Ana María Soto Vargas','ana.soto1@ejemplo.com','1-0987-0123','1-0987-0123','ContrasenaSegura',1,_binary ''),(2,'Luis Fernando Blanco Mora','luis.blanco@ejemplo.com','2-0123-0456','8765-4321','MiPassword2#',1,_binary ''),(3,'Sofía Alejandra Castro León','sofia.castro@ejemplo.com','1-1000-1111','8300-1234','ClaveFacil3$',1,_binary ''),(4,'Carlos Alberto Ramírez Solís','carlos.ramirez@ejemplo.com','3-0234-0567','8911-2233','Usuario4*',2,_binary ''),(6,'José Pablo Núñez Rojas','jose.nunez@ejemplo.com','4-0101-0202','8678-9012','MiClave6&',1,_binary '');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -698,4 +698,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-13 12:19:15
+-- Dump completed on 2025-08-13 12:50:41
