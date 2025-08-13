@@ -99,7 +99,6 @@ AddHead();
                         <span aria-hidden="true" style="font-size:1.5rem;">&times;</span>
                     </button>
                 </div>
-
                 <form action="" method="POST">
                     <div class="modal-body">
                         <input type="hidden" id="IdProducto" name="IdProducto" class="form-control">
