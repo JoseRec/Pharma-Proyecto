@@ -27,7 +27,7 @@ if (isset($_POST["btnIniciarSesion"])) {
 
         header("location: ../../Views/Home/principal.php");
     } else {
-        $_POST["txtMensaje"] = "Su información es incorrecta.";
+        $_POST["txtMensaje"] = "Su información es incorrecta .";
     }
 }
 

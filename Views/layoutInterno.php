@@ -5,11 +5,21 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
+  
 function showHeader()
 {
     $nombre = $_SESSION['Nombre']; // Usuario logueado
     $rol = $_SESSION['Rol_Fk']; // 1 = Comprador, 2 = Administrador
+    $total = "0.00";
+    $cantidad = "0";
+
+    if (isset($_SESSION["Total"])) {
+        $total = number_format($_SESSION["Total"], 2);
+    }
+
+    if (isset($_SESSION["Cantidad"])) {
+        $cantidad = $_SESSION["Cantidad"];
+    }
 
     // Header para rol COMPRADOR
     if ($rol == 1) {
@@ -29,14 +39,14 @@ function showHeader()
               <div class="d-flex align-items-center justify-content-between">
                 <div class="logo">
                   <div class="site-logo">
-                    <a href="Principal.php" class="js-logo-clone">Pharma</a>
+                    <a href="../Home/Principal.php" class="js-logo-clone">Pharma</a>
                   </div>
                 </div>
                 <div class="main-nav d-none d-lg-block">
                   <nav class="site-navigation text-right text-md-center" role="navigation">
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                      <li class="active"><a href="index.html">Home</a></li>
-                      <li><a href="shop.html">Store</a></li>
+                      <li class="active"><a href="../Home/Principal.php">Home</a></li>
+                      <li><a href="../Productos/Productos.php">Productos</a></li>
                       <li class="has-children">
                         <a href="#">Dropdown</a>
                         <ul class="dropdown">
@@ -61,9 +71,9 @@ function showHeader()
                 </div>
                 <div class="icons">
                   <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                  <a href="cart.html" class="icons-btn d-inline-block bag">
+                  <a href="../Carrito/ConsultarCarrito.php" class="icons-btn d-inline-block bag">
                     <span class="icon-shopping-bag"></span>
-                    <span class="number">2</span>
+                    <span class="number"> '.$cantidad.' </span>
                   </a>
 
                   <!-- Menú de usuario -->
@@ -289,6 +299,7 @@ function AddHead()
     <meta name="author" content="Kodinger">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>
     <link rel="stylesheet" href="../Estilos/icomoon/style.css">
     <link rel="stylesheet" href="../Estilos/bootstrap.min.css">
     <link rel="stylesheet" href="../Estilos/magnific-popup.css">
@@ -314,6 +325,7 @@ function AddJs()
     <script src="../Funciones/aos.js"></script>
     <script src="../Funciones/main.js"></script>
     <script src="../Funciones/comunes.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap4.js"></script>
     ';
