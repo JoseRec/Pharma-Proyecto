@@ -78,15 +78,17 @@ AddHead();
                                         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                                             <div class="d-flex mb-3" style="max-width: 200px;">
                                                 <button class="btn btn-primary px-3 me-2"
-                                                    onclick="actualizarCantidad(this, <?php echo $fila['idProducto']; ?>, 'menos')"
+                                                    onclick="actualizarCantidad(<?php echo $fila['idProducto']; ?>, 'menos')"
                                                     type="button">
                                                     <i class="icon-minus"></i>
                                                 </button>
-                                                <input type="number" min="1" max="99"
-                                                    value="<?php echo $fila['Cantidad']; ?>"
+
+                                                <input type="number" id="cantidad-<?php echo $fila['idProducto']; ?>"
+                                                    min="1" max="99" value="<?php echo $fila['Cantidad']; ?>"
                                                     class="form-control text-center" style="max-width: 60px;" />
+
                                                 <button class="btn btn-primary px-3 ms-2"
-                                                    onclick="actualizarCantidad(this, <?php echo $fila['idProducto']; ?>, 'mas')"
+                                                    onclick="actualizarCantidad(<?php echo $fila['idProducto']; ?>, 'mas')"
                                                     type="button">
                                                     <i class="icon-plus"></i>
                                                 </button>
@@ -132,6 +134,8 @@ AddHead();
                                 <button type="submit" name="procesarPago" class="btn btn-primary btn-lg btn-block">
                                     Procesar pago
                                 </button>
+
+
                             </div>
                         </div>
                     </div>
@@ -211,8 +215,8 @@ AddHead();
             });
         }
 
-        function actualizarCantidad(btn, idProducto, accion) {
-            let input = btn.parentNode.querySelector('input[type=number]');
+        function actualizarCantidad(idProducto, accion) {
+            let input = document.querySelector('#cantidad-' + idProducto);
 
             if (accion === 'mas') {
                 input.stepUp();
